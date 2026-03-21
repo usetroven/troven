@@ -1,0 +1,427 @@
+// Troven — Prisma Schema
+// Database: PostgreSQL on Supabase
+// Generated: March 2026
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")   // pooler URL — used by the app at runtime
+  directUrl = env("DIRECT_URL")     // direct connection — used by prisma migrate
+}
+
+// ─────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────
+
+enum KycStage {
+  none
+  phone
+  bvn
+  id
+}
+
+enum StorefrontType {
+  digital
+  event
+  booking
+}
+
+enum StorefrontStatus {
+  active
+  archived
+}
+
+enum ProductType {
+  file      // downloadable file(s) from R2
+  link      // external URL delivery
+  event     // event with ticket tiers
+  booking   // 1:1 session with calendar slots
+}
+
+enum Visibility {
+  draft
+  published
+  unlisted
+}
+
+enum OrderStatus {
+  pending    // payment initiated, not confirmed
+  completed  // payment confirmed by webhook
+  failed     // payment failed or timed out
+  refunded   // refund issued
+}
+
+enum DeliveryStatus {
+  pending
+  delivered
+  failed
+}
+
+enum DeliveryType {
+  file_download   // signed R2 URL
+  external_link   // URL sent by email
+  qr_ticket       // QR code for event
+  calendar_invite // .ics + confirmation for booking
+}
+
+enum PayoutStatus {
+  pending
+  processing
+  completed
+  failed
+}
+
+enum WalletTxType {
+  credit   // sale completed, net amount credited
+  debit    // payout initiated
+  fee      // platform fee deducted
+  refund   // refund processed
+}
+
+enum BookingSlotStatus {
+  available
+  booked
+  cancelled
+}
+
+// ─────────────────────────────────────────────
+// LAYER 1 — ACCOUNT & IDENTITY
+// ─────────────────────────────────────────────
+
+model Workspace {
+  id            String     @id @default(uuid())
+  supabaseUserId String    @unique @map("supabase_user_id")
+  email         String
+  fullName      String     @map("full_name")
+  avatarUrl     String?    @map("avatar_url")
+
+  // KYC — progressive, never blocks selling
+  kycStage      KycStage   @default(none) @map("kyc_stage")
+  bvnRef        String?    @map("bvn_ref")     // reference from Paystack Identity / Dojah
+  phone         String?
+
+  // Plan limits
+  storefrontLimit Int      @default(5) @map("storefront_limit")
+
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  storefronts         Storefront[]
+  products            Product[]
+  orders              Order[]
+  payouts             Payout[]
+  walletTransactions  WalletTransaction[]
+  bookingSlots        BookingSlot[]
+  ticketTiers         TicketTier[]
+
+  @@map("workspaces")
+}
+
+// ─────────────────────────────────────────────
+// LAYER 2 — STOREFRONTS
+// ─────────────────────────────────────────────
+
+model Storefront {
+  id          String           @id @default(uuid())
+  workspaceId String           @map("workspace_id")
+  slug        String           @unique  // usetroven.com/[slug]
+  name        String
+  type        StorefrontType
+  status      StorefrontStatus @default(active)
+
+  // Branding — fully independent per storefront
+  logoUrl     String?          @map("logo_url")
+  bannerUrl   String?          @map("banner_url")
+  accentColour String?         @map("accent_colour")  // hex e.g. #534AB7
+  bio         String?
+  socialLinks Json?            @map("social_links")
+  // { instagram, x, tiktok, linkedin, youtube } — all optional strings
+
+  productCount Int             @default(0) @map("product_count")
+
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+
+  // Relations
+  workspace   Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  products    Product[]
+  orders      Order[]
+  purchases   Purchase[]
+
+  @@map("storefronts")
+}
+
+// ─────────────────────────────────────────────
+// LAYER 3 — PRODUCTS
+// ─────────────────────────────────────────────
+
+model Product {
+  id          String      @id @default(uuid())
+  workspaceId String      @map("workspace_id")
+  storefrontId String     @map("storefront_id")
+
+  title       String
+  description String?     @db.Text
+  coverImageUrl String?   @map("cover_image_url")
+
+  type        ProductType
+  priceNgn    Decimal?    @map("price_ngn")   @db.Decimal(12, 2)
+  priceUsd    Decimal?    @map("price_usd")   @db.Decimal(12, 2)
+  visibility  Visibility  @default(draft)
+
+  // deliveryConfig holds type-specific config:
+  // file/link  → { externalUrl?: string }
+  // event      → { eventDate, eventTime, eventLocation, totalCapacity, autoClose: bool }
+  // booking    → { duration: 30|45|60|90, bufferMins, maxPerDay, weeklySchedule, confirmationMsg }
+  deliveryConfig Json?    @map("delivery_config")
+
+  // Order bump — optional, must be in same storefront
+  orderBumpProductId String? @map("order_bump_product_id")
+
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  storefront  Storefront  @relation(fields: [storefrontId], references: [id], onDelete: Cascade)
+  files       ProductFile[]
+  ticketTiers TicketTier[]
+  orderItems  OrderItem[]
+  purchases   Purchase[]
+
+  orderBumpProduct  Product?  @relation("OrderBump", fields: [orderBumpProductId], references: [id])
+  orderBumpFor      Product[] @relation("OrderBump")
+
+  @@map("products")
+}
+
+model ProductFile {
+  id           String   @id @default(uuid())
+  productId    String   @map("product_id")
+
+  r2Key        String   @map("r2_key")          // e.g. files/workspace-id/product-id/filename.pdf
+  originalName String   @map("original_name")
+  sizeBytes    BigInt   @map("size_bytes")
+  mimeType     String   @map("mime_type")
+  sortOrder    Int      @default(0) @map("sort_order")  // for multi-file products
+
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_files")
+}
+
+// Ticket tiers — only used when product.type = event
+model TicketTier {
+  id          String   @id @default(uuid())
+  productId   String   @map("product_id")
+  workspaceId String   @map("workspace_id")
+
+  name        String           // e.g. "General Admission", "VIP", "Early Bird"
+  priceNgn    Decimal          @map("price_ngn")  @db.Decimal(12, 2)
+  priceUsd    Decimal?         @map("price_usd")  @db.Decimal(12, 2)
+  capacity    Int              // max tickets for this tier
+  soldCount   Int      @default(0) @map("sold_count")
+  isActive    Boolean  @default(true) @map("is_active")
+
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  orderItems  OrderItem[]
+
+  @@map("ticket_tiers")
+}
+
+// ─────────────────────────────────────────────
+// LAYER 4 — ORDERS & PAYMENTS
+// ─────────────────────────────────────────────
+
+model Order {
+  id          String      @id @default(uuid())
+  workspaceId String      @map("workspace_id")
+  storefrontId String     @map("storefront_id")
+
+  buyerEmail  String      @map("buyer_email")
+  buyerName   String?     @map("buyer_name")
+
+  status      OrderStatus @default(pending)
+
+  // Financials — always stored in source currency
+  subtotal    Decimal     @db.Decimal(12, 2)  // main product price
+  bumpTotal   Decimal     @default(0) @map("bump_total") @db.Decimal(12, 2)
+  platformFee Decimal     @map("platform_fee") @db.Decimal(12, 2)
+  netAmount   Decimal     @map("net_amount")   @db.Decimal(12, 2)
+  currency    String      @default("NGN")      // NGN or USD
+
+  // Payment gateway
+  gateway     String      // "paystack" | "flutterwave"
+  gatewayRef  String      @unique @map("gateway_ref")        // reference we sent to gateway
+  gatewayEventId String?  @map("gateway_event_id")           // webhook event id for idempotency
+  idempotencyChecked Boolean @default(false) @map("idempotency_checked")
+
+  completedAt DateTime?   @map("completed_at")
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  // Relations
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id])
+  storefront  Storefront  @relation(fields: [storefrontId], references: [id])
+  items       OrderItem[]
+  purchases   Purchase[]
+  walletTx    WalletTransaction[]
+
+  @@map("orders")
+}
+
+// One row per product in the order (main product + optional bump)
+model OrderItem {
+  id              String      @id @default(uuid())
+  orderId         String      @map("order_id")
+  productId       String      @map("product_id")
+  ticketTierId    String?     @map("ticket_tier_id")  // set if product.type = event
+  isBump          Boolean     @default(false) @map("is_bump")
+  priceAtPurchase Decimal     @map("price_at_purchase") @db.Decimal(12, 2)
+  currency        String      @default("NGN")
+
+  order           Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product         Product     @relation(fields: [productId], references: [id])
+  ticketTier      TicketTier? @relation(fields: [ticketTierId], references: [id])
+  purchase        Purchase?
+
+  @@map("order_items")
+}
+
+// ─────────────────────────────────────────────
+// LAYER 5 — PURCHASES & ACCESS
+// CRITICAL: lifetime_access is NEVER a FK on
+// subscriptions. A seller cancelling their plan
+// cannot revoke buyer access. Ever.
+// ─────────────────────────────────────────────
+
+model Purchase {
+  id            String         @id @default(uuid())
+  orderId       String         @map("order_id")
+  orderItemId   String         @unique @map("order_item_id")
+  productId     String         @map("product_id")
+  storefrontId  String         @map("storefront_id")
+  workspaceId   String         @map("workspace_id")
+
+  buyerEmail    String         @map("buyer_email")
+
+  // THE SACRED FLAG — set true at purchase, only revoked on refund
+  // No FK to subscriptions. No cascade from seller plan.
+  lifetimeAccess Boolean       @default(true) @map("lifetime_access")
+
+  deliveryStatus DeliveryStatus @default(pending) @map("delivery_status")
+  deliveryType   DeliveryType   @map("delivery_type")
+
+  // deliveryMeta holds type-specific delivery data:
+  // file_download   → { r2Keys: string[], downloadCount: number }
+  // external_link   → { url: string }
+  // qr_ticket       → { qrCodeUrl: string, ticketRef: string, tier: string }
+  // calendar_invite → { icsUrl: string, slotId: string, meetLink?: string }
+  deliveryMeta  Json?          @map("delivery_meta")
+
+  deliveredAt   DateTime?      @map("delivered_at")
+  grantedAt     DateTime       @default(now()) @map("granted_at")
+
+  // Relations
+  order         Order          @relation(fields: [orderId], references: [id])
+  orderItem     OrderItem      @relation(fields: [orderItemId], references: [id])
+  product       Product        @relation(fields: [productId], references: [id])
+  storefront    Storefront     @relation(fields: [storefrontId], references: [id])
+  bookingSlot   BookingSlot?
+
+  @@map("purchases")
+}
+
+// ─────────────────────────────────────────────
+// LAYER 6 — STOREFRONT-TYPE SPECIFIC TABLES
+// ─────────────────────────────────────────────
+
+// Booking slots — only used when product.type = booking
+// Pre-populated by creator's availability config.
+// Linked to purchase when a buyer books a slot.
+model BookingSlot {
+  id          String            @id @default(uuid())
+  productId   String            @map("product_id")
+  workspaceId String            @map("workspace_id")
+  purchaseId  String?           @unique @map("purchase_id")
+
+  slotDate    DateTime          @map("slot_date")    @db.Date
+  slotStart   DateTime          @map("slot_start")   @db.Time
+  slotEnd     DateTime          @map("slot_end")     @db.Time
+  status      BookingSlotStatus @default(available)
+
+  buyerEmail  String?           @map("buyer_email")  // set when booked
+  bookedAt    DateTime?         @map("booked_at")
+
+  workspace   Workspace         @relation(fields: [workspaceId], references: [id])
+  purchase    Purchase?         @relation(fields: [purchaseId], references: [id])
+
+  @@map("booking_slots")
+}
+
+// ─────────────────────────────────────────────
+// LAYER 7 — PAYOUTS & WALLET
+// ─────────────────────────────────────────────
+
+model Payout {
+  id              String       @id @default(uuid())
+  workspaceId     String       @map("workspace_id")
+
+  amountNgn       Decimal      @map("amount_ngn")  @db.Decimal(12, 2)
+  amountUsd       Decimal?     @map("amount_usd")  @db.Decimal(12, 2)
+
+  // FX transparency — every payout records the exact rate used
+  fxRate          Decimal?     @map("fx_rate")      @db.Decimal(10, 4)  // e.g. 1712.5000
+  fxSource        String?      @map("fx_source")    // e.g. "CBN mid-market + 0.5% Troven spread"
+  platformSpread  Decimal?     @map("platform_spread") @db.Decimal(5, 4)  // e.g. 0.0050
+
+  status          PayoutStatus @default(pending)
+
+  // Bank account — stored at payout time (not a FK, in case bank details change)
+  bankCode        String       @map("bank_code")
+  accountNumber   String       @map("account_number")
+  accountName     String       @map("account_name")
+
+  gatewayTransferId String?    @unique @map("gateway_transfer_id")
+
+  initiatedAt     DateTime     @default(now()) @map("initiated_at")
+  completedAt     DateTime?    @map("completed_at")
+
+  workspace       Workspace    @relation(fields: [workspaceId], references: [id])
+  walletTx        WalletTransaction[]
+
+  @@map("payouts")
+}
+
+// Append-only ledger — every money movement is recorded here.
+// Current balance = SUM of all wallet_transactions for a workspace.
+// Never update a row — only insert.
+model WalletTransaction {
+  id          String       @id @default(uuid())
+  workspaceId String       @map("workspace_id")
+
+  orderId     String?      @map("order_id")    // set for credit/fee rows
+  payoutId    String?      @map("payout_id")   // set for debit rows
+
+  type        WalletTxType
+  amount      Decimal      @db.Decimal(12, 2)   // always positive
+  currency    String       @default("NGN")
+  balanceAfter Decimal     @map("balance_after") @db.Decimal(12, 2)
+  note        String?      @db.Text
+
+  createdAt   DateTime     @default(now()) @map("created_at")
+
+  workspace   Workspace    @relation(fields: [workspaceId], references: [id])
+  order       Order?       @relation(fields: [orderId], references: [id])
+  payout      Payout?      @relation(fields: [payoutId], references: [id])
+
+  @@map("wallet_transactions")
+}
