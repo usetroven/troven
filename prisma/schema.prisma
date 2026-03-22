@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────
+
+enum KycLevel {
+  levelZero
+  levelOne
+  levelTwo
+  levelThree
+  levelFour
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum StoreType {
+  TICKETING
+  COMMERCE
+  MEETING
+  MULTIPLE
+  CUSTOM
+}
+
+enum ProductType {
+  TICKET
+  PRODUCT
+  MEETING
+}
+
+model PhoneNumber {
+  number      String  @id
+  countryCode String
+  isVerified  Boolean @default(false) @map("is_verified")
+  users       User[]
+}
+
+model Member {
+  id           String      @id @default(uuid())
+  role         Role        @default(STAFF)
+  userId       String
+  user         User        @relation(fields: [userId], references: [id])
+  workspaceId  String?
+  workspace    Workspace?  @relation(fields: [workspaceId], references: [id])
+  storefrontId String?
+  storefront   Storefront? @relation(fields: [storefrontId], references: [id])
+
+  @@unique([userId, workspaceId, storefrontId])
+  @@map("members")
+}
+
+model User {
+  id                String      @id @default(uuid())
+  fullName          String      @map("full_name")
+  email             String      @unique
+  phone             PhoneNumber? @relation(fields: [phoneNumberNumber], references: [number])
+  createdAt         DateTime    @default(now()) @map("created_at")
+  updatedAt         DateTime    @updatedAt @map("updated_at")
+  kycLevel          KycLevel    @default(levelZero) @map("kyc_level")
+  memberships       Member[]
+  ownedWorkspaces   Workspace[]
+  phoneNumberNumber String?
+
+  @@map("users")
+}
+
+model Workspace {
+  id          String       @id @default(uuid())
+  name        String
+  ownerId     String
+  owner       User         @relation(fields: [ownerId], references: [id])
+  members     Member[]
+  storefronts Storefront[]
+}
+
+model Product {
+  id           String      @id @default(uuid())
+  storefrontId String
+  storefront   Storefront  @relation(fields: [storefrontId], references: [id])
+  type         ProductType
+  title        String
+  ticketDate   DateTime?
+  duration     Int?
+  stock        Int?
+}
+
+model Storefront {
+  id          String    @id @default(uuid())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  storeType   StoreType
+  products    Product[]
+  config      Json
+  members     Member[]
+}
