@@ -97,6 +97,50 @@ export const analyticsContent = {
   ],
 } as const;
 
+export const logisticsContent = {
+  tag: "Logistics integration",
+  title: "Ship globally. Choose your own carrier.",
+  desc: "Troven integrates with Nigeria’s leading logistics vendors — GIG Logistics, DHL, and Glovo. Connect multiple carriers simultaneously and let customers choose at checkout. Or handle fulfilment manually — you’re always in control.",
+  bullets: [
+    "GIG Logistics — nationwide Nigeria delivery",
+    "DHL Express — international shipping to 220+ countries",
+    "Glovo — same-day urban delivery",
+    "Multiple carriers active at once — buyer chooses at checkout",
+    "Manual / self-ship always available as fallback",
+    "Automatic tracking updates sent to the buyer via email",
+  ],
+  vendors: [
+    {
+      abbr: "GIG",
+      name: "GIG Logistics",
+      subtitle: "Nigeria-wide delivery",
+      status: "active" as const,
+      iconTone: { bg: "rgba(0,168,126,0.12)", color: "var(--troven-accent)" },
+    },
+    {
+      abbr: "DHL",
+      name: "DHL Express",
+      subtitle: "International shipping",
+      status: "active" as const,
+      iconTone: { bg: "rgba(255,200,0,0.08)", color: "#ffd700" },
+    },
+    {
+      abbr: "GLV",
+      name: "Glovo",
+      subtitle: "Same-day city delivery",
+      status: "idle" as const,
+      iconTone: { bg: "rgba(255,100,0,0.08)", color: "#ff6400" },
+    },
+    {
+      abbr: "✋",
+      name: "Self / Manual delivery",
+      subtitle: "Handle fulfilment yourself",
+      status: "always" as const,
+      iconTone: { bg: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" },
+    },
+  ],
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },
