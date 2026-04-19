@@ -141,6 +141,39 @@ export const logisticsContent = {
   ],
 } as const;
 
+export const couponsContent = {
+  tag: "Coupon engine",
+  title: "Discount codes,\nflash sales, bundles.",
+  desc: "Create percentage or fixed-amount coupons, set expiry dates and usage limits, restrict to specific products or storefronts. Run flash sales without changing your listed price.",
+  bullets: [
+    "Percentage or fixed-amount discounts",
+    "Usage caps — limit to N uses total or per buyer",
+    "Expiry dates and scheduled activation",
+    "Restrict to specific products, storefronts, or buyer emails",
+    "One-click share link with coupon pre-applied",
+  ],
+  coupons: [
+    {
+      code: "LAUNCH50",
+      meta: "50% off · Expires Apr 30 · 48/100 used",
+      value: "−50%",
+      expired: false,
+    },
+    {
+      code: "VIP2026",
+      meta: "₦5,000 off · No expiry · 12/∞ used",
+      value: "−₦5k",
+      expired: false,
+    },
+    {
+      code: "EARLYB",
+      meta: "Expired · 100/100 used",
+      value: "Done",
+      expired: true,
+    },
+  ],
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },

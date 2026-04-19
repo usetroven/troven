@@ -3,6 +3,7 @@ import { Marquee } from "./_components/sections/Marquee";
 import { StorefrontTypes } from "./_components/sections/StorefrontTypes";
 import { AnalyticsFeature } from "./_components/sections/AnalyticsFeature";
 import { LogisticsFeature } from "./_components/sections/LogisticsFeature";
+import { CouponsFeature } from "./_components/sections/CouponsFeature";
 
 export default function LandingPage() {
   return (
@@ -12,6 +13,7 @@ export default function LandingPage() {
       <StorefrontTypes />
       <AnalyticsFeature />
       <LogisticsFeature />
+      <CouponsFeature />
     </>
   );
 }
