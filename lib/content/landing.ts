@@ -216,6 +216,53 @@ export const retainersContent = {
   ],
 } as const;
 
+export const differentiatorsContent = {
+  eyebrow: "Built different",
+  title: "No hidden fees.\nNo fund holds. No lock-in.",
+  items: [
+    {
+      icon: "⚡",
+      title: "Transparent FX rates",
+      desc: "See the exact exchange rate before every withdrawal. CBN mid-market + 0.5% spread — shown on screen before you approve. No surprises.",
+    },
+    {
+      icon: "💸",
+      title: "Instant self-serve payouts",
+      desc: "Withdraw to your bank yourself. No support tickets, no delays. Same-day for requests before 3 PM WAT. Next-day otherwise.",
+    },
+    {
+      icon: "🔐",
+      title: "Buyer access is permanent",
+      desc: "Your customers keep lifetime access to what they paid for — even if you pause your plan. Enforced at the database level, not a promise.",
+    },
+    {
+      icon: "📊",
+      title: "Per-storefront analytics",
+      desc: "Each storefront has its own analytics dashboard. Revenue, orders, conversion rates, and affiliate attribution — independently, per store.",
+    },
+    {
+      icon: "🚚",
+      title: "Logistics of your choice",
+      desc: "Connect GIG, DHL, Glovo, or self-ship. Multiple carriers simultaneously. Buyer picks at checkout. You control rates and handling.",
+    },
+    {
+      icon: "📤",
+      title: "Your data, always yours",
+      desc: "Export all customer data and product files anytime. CSV, API, or bulk download. No lock-in — Troven earns your loyalty, not your captivity.",
+    },
+    {
+      icon: "✦",
+      title: "AI-powered storefront design",
+      desc: "Each storefront can generate a unique theme using AI — colour palettes, typography, layout — to match your brand, not look like everyone else.",
+    },
+    {
+      icon: "👥",
+      title: "Team access & roles",
+      desc: "Add support staff, managers, and collaborators. Role-based permissions so the right people see the right things. Per-storefront team scoping.",
+    },
+  ],
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },
