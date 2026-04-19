@@ -174,6 +174,48 @@ export const couponsContent = {
   ],
 } as const;
 
+export const retainersContent = {
+  tag: "Premium retainers",
+  title: "Predictable income.\nFrom every storefront type.",
+  desc: "Create recurring retainer plans and subscription tiers on any storefront. Coaching clients on monthly plans, digital product libraries with recurring access, ticket season passes — the retainer model adapts to what you sell.",
+  bullets: [
+    "Monthly or annual billing cycles",
+    "Tiered plans with different access levels per tier",
+    "Automatic renewal with email nudge before charge",
+    "MRR dashboard — see your predictable monthly income",
+    "Works with bookings, digital products, and physical subscriptions",
+    "Grace period on failed payments — no abrupt access cuts",
+  ],
+  label: "Retainer plans · Coaching Sessions",
+  plans: [
+    {
+      name: "Starter",
+      price: "₦30,000",
+      period: "/mo",
+      desc: "2 sessions per month · Email support",
+      featured: false,
+    },
+    {
+      name: "Growth · Most popular",
+      price: "₦60,000",
+      period: "/mo",
+      desc: "4 sessions · Priority WhatsApp + reviews",
+      featured: true,
+    },
+    {
+      name: "VIP",
+      price: "₦120,000",
+      period: "/mo",
+      desc: "Unlimited sessions · Dedicated Slack",
+      featured: false,
+    },
+  ],
+  stats: [
+    { text: "3 active subscribers", tone: "muted" as const },
+    { text: "₦270k MRR", tone: "accent" as const },
+  ],
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },
