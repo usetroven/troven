@@ -84,6 +84,19 @@ export const storefrontTypesContent = {
   ],
 } as const;
 
+export const analyticsContent = {
+  tag: "Per-storefront analytics",
+  title: "Know exactly what’s working — for every store.",
+  desc: "Each storefront has its own analytics dashboard. Track revenue, orders, conversion rates, top products, and customer geography — independently per store, or aggregated across your whole workspace.",
+  bullets: [
+    "Revenue breakdown by storefront, day, product, and country",
+    "Conversion funnel — visitors → checkout → paid",
+    "Top-performing products ranked by GMV and units",
+    "Affiliate attribution — see which partner drove which sale",
+    "Export to CSV anytime — no lock-in",
+  ],
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },

@@ -1,6 +1,7 @@
 import { Hero } from "./_components/sections/Hero";
 import { Marquee } from "./_components/sections/Marquee";
 import { StorefrontTypes } from "./_components/sections/StorefrontTypes";
+import { AnalyticsFeature } from "./_components/sections/AnalyticsFeature";
 
 export default function LandingPage() {
   return (
@@ -8,6 +9,7 @@ export default function LandingPage() {
       <Hero />
       <Marquee />
       <StorefrontTypes />
+      <AnalyticsFeature />
     </>
   );
 }
