@@ -263,6 +263,70 @@ export const differentiatorsContent = {
   ],
 } as const;
 
+export const pricingContent = {
+  eyebrow: "Pricing",
+  title: "Simple, honest pricing.",
+  subtitle:
+    "Start free. Upgrade when you’re ready. Every fee is shown before it’s charged.",
+  footnote:
+    "All plans include: transparent FX rates · self-serve payouts · lifetime buyer access guarantee · NDPR compliance",
+  tiers: [
+    {
+      plan: "Starter",
+      amount: "Free",
+      period: "forever",
+      fee: "5% per sale",
+      features: [
+        "Up to 3 storefronts",
+        "Digital, events, bookings",
+        "Transparent FX payouts",
+        "Basic analytics",
+        "1 team member",
+      ],
+      cta: { label: "Get started free", href: "/coming-soon" },
+      featured: false,
+      buttonVariant: "pill-dark" as const,
+    },
+    {
+      plan: "Creator",
+      amount: "₦8,000",
+      period: "per month",
+      fee: "2% per sale",
+      badge: "Most popular",
+      features: [
+        "Up to 5 storefronts",
+        "All storefront types",
+        "Logistics integrations",
+        "Coupon & discount engine",
+        "Retainer / subscription plans",
+        "Advanced analytics",
+        "3 team members",
+      ],
+      cta: { label: "Start Creator plan", href: "/coming-soon" },
+      featured: true,
+      buttonVariant: "pill-light" as const,
+    },
+    {
+      plan: "Pro",
+      amount: "₦20,000",
+      period: "per month",
+      fee: "0.5% per sale",
+      features: [
+        "Unlimited storefronts",
+        "Custom domain per storefront",
+        "AI storefront design",
+        "Affiliate programme",
+        "API access",
+        "Priority payout processing",
+        "Unlimited team members",
+      ],
+      cta: { label: "Go Pro", href: "/coming-soon" },
+      featured: false,
+      buttonVariant: "pill-dark" as const,
+    },
+  ],
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },
