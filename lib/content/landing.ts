@@ -28,6 +28,17 @@ export const heroContent = {
   ],
 } as const;
 
+export const marqueeContent = [
+  { title: "Digital products", detail: "Auto-delivered in 60 seconds" },
+  { title: "Event tickets", detail: "QR codes, tiers, capacity limits" },
+  { title: "1:1 bookings", detail: "Calendar sync, auto-confirmations" },
+  { title: "Physical goods", detail: "GIG · DHL · Glovo integration" },
+  { title: "Link-in-bio", detail: "All your links, one beautiful page" },
+  { title: "Affiliate programme", detail: "Refer and earn, automated" },
+  { title: "Instant payouts", detail: "Same-day, self-serve withdrawals" },
+  { title: "Coupon engine", detail: "Discount codes, flash sales" },
+] as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },
