@@ -9,6 +9,25 @@ export const navContent = {
   signup: { href: "/coming-soon", label: "Start free" },
 } as const;
 
+export const heroContent = {
+  eyebrow: "Creator commerce platform",
+  headline: {
+    lead: "Sell everything.",
+    accent: "Own everything.",
+  },
+  sub: "Tickets, digital products, 1:1 sessions, physical goods — multiple storefronts, one workspace, instant payouts to your bank.",
+  actions: {
+    primary: { href: "/coming-soon", label: "Create your store" },
+    secondary: { href: "#features", label: "See how it works" },
+  },
+  stats: [
+    { value: "10,000+", label: "creators" },
+    { value: "₦2B+", label: "in sales processed" },
+    { value: "150", label: "countries reached" },
+    { value: "4.9 ★", label: "creator satisfaction" },
+  ],
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },

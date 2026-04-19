@@ -1,3 +1,9 @@
+import { Hero } from "./_components/sections/Hero";
+
 export default function LandingPage() {
-  return <div className="min-h-[80vh]" />;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 }
