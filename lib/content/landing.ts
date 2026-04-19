@@ -39,6 +39,51 @@ export const marqueeContent = [
   { title: "Coupon engine", detail: "Discount codes, flash sales" },
 ] as const;
 
+export const storefrontTypesContent = {
+  eyebrow: "Every format",
+  title: "One workspace.\nEvery storefront type.",
+  subtitle:
+    "Create independent storefronts for each thing you sell — each with its own brand, URL, and product catalogue. All revenue flows into one wallet.",
+  types: [
+    {
+      icon: "📦",
+      title: "Digital products",
+      desc: "eBooks, templates, video courses, software — auto-delivered the moment payment clears. Files up to 2 GB.",
+      tag: "Instant delivery",
+    },
+    {
+      icon: "🎟",
+      title: "Event tickets",
+      desc: "Multi-tier pricing, live capacity tracking, QR code delivery, and FOMO-inducing urgency signals built in.",
+      tag: "QR code delivery",
+    },
+    {
+      icon: "📅",
+      title: "1:1 bookings",
+      desc: "Calendar availability, buffer times, session types, automatic .ics confirmations sent to both parties.",
+      tag: "Auto-confirmed",
+    },
+    {
+      icon: "🛒",
+      title: "Physical goods",
+      desc: "Full eCommerce with your choice of logistics partner — GIG Logistics, DHL, Glovo, or self-ship.",
+      tag: "Logistics built in",
+    },
+    {
+      icon: "🔗",
+      title: "Link-in-bio",
+      desc: "All your storefronts and links in one page. Each link points to a real transactional storefront, not just a URL.",
+      tag: "Converts traffic",
+    },
+    {
+      icon: "🏬",
+      title: "Multi-store hub",
+      desc: "Aggregate all your storefronts under one URL. Elegant layout that keeps each product line distinct.",
+      tag: "Everything, one place",
+    },
+  ],
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },
