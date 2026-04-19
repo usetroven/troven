@@ -327,6 +327,16 @@ export const pricingContent = {
   ],
 } as const;
 
+export const ctaContent = {
+  title: "Your craft deserves\na better platform.",
+  sub: "Join creators across Africa and beyond who are building their digital business on Troven.",
+  actions: {
+    primary: { href: "/coming-soon", label: "Create your store free" },
+    secondary: { href: "/coming-soon", label: "Talk to us" },
+  },
+  note: "No credit card required · Free to start · Cancel anytime",
+} as const;
+
 export const footerContent = {
   links: [
     { href: "/coming-soon", label: "Features" },

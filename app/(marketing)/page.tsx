@@ -7,6 +7,7 @@ import { CouponsFeature } from "./_components/sections/CouponsFeature";
 import { RetainersFeature } from "./_components/sections/RetainersFeature";
 import { Differentiators } from "./_components/sections/Differentiators";
 import { Pricing } from "./_components/sections/Pricing";
+import { CTA } from "./_components/sections/CTA";
 
 export default function LandingPage() {
   return (
@@ -20,6 +21,7 @@ export default function LandingPage() {
       <RetainersFeature />
       <Differentiators />
       <Pricing />
+      <CTA />
     </>
   );
 }
