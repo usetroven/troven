@@ -5,7 +5,7 @@ import { builtForYouContent } from "@/lib/content/landing";
 /* ── SVG Creator Illustrations ── */
 function AdaezeIllustration() {
   return (
-    <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
+    <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", display: "block" }}>
       <rect width="240" height="320" fill="#1a0e08" />
       <rect x="0" y="200" width="240" height="120" fill="#110a05" />
       <circle cx="120" cy="80" r="90" fill="rgba(255,180,80,0.06)" />
@@ -46,7 +46,7 @@ function AdaezeIllustration() {
 
 function ChukwuemekaIllustration() {
   return (
-    <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
+    <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", display: "block" }}>
       <rect width="240" height="320" fill="#0a0a1f" />
       <rect x="0" y="240" width="240" height="80" fill="#06060f" />
       <path d="M40 0 L20 140 L80 140z" fill="rgba(73,79,223,0.08)" />
@@ -86,7 +86,7 @@ function ChukwuemekaIllustration() {
 
 function TifeIllustration() {
   return (
-    <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
+    <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", display: "block" }}>
       <rect width="240" height="320" fill="#fdf6ee" />
       <circle cx="60" cy="40" r="50" fill="rgba(255,180,100,0.15)" />
       <circle cx="200" cy="260" r="70" fill="rgba(255,100,130,0.08)" />
@@ -129,7 +129,7 @@ function TifeIllustration() {
 
 function CoachSeunIllustration() {
   return (
-    <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
+    <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", display: "block" }}>
       <rect width="240" height="320" fill="#0a1a0e" />
       <rect x="0" y="220" width="240" height="100" fill="#060f08" />
       <rect x="10" y="160" width="8" height="80" rx="2" fill="rgba(255,255,255,0.04)" />
@@ -189,33 +189,36 @@ export function BuiltForYou() {
           {creators.map((creator, i) => {
             const Illustration = illustrations[i];
             return (
-              <Reveal
+              <div
                 key={creator.name}
-                delay={((i + 1) as 1 | 2 | 3 | 4)}
-                className="relative overflow-hidden rounded-3xl"
+                style={{ marginTop: i % 2 !== 0 ? "24px" : "0" }}
               >
-                <div
-                  className="relative h-full w-full transition-transform duration-300 hover:scale-[1.02]"
-                  style={{
-                    aspectRatio: "3/4",
-                    marginTop: i % 2 !== 0 ? "24px" : "0",
-                  }}
-                >
-                  <Illustration />
-                  {/* Label overlay */}
+                <Reveal delay={((i + 1) as 1 | 2 | 3 | 4)}>
+                  {/* Card: aspect-ratio defines height, overflow-hidden clips to radius */}
                   <div
-                    className="absolute inset-x-0 bottom-0 p-4"
-                    style={{
-                      background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)",
-                    }}
+                    className="relative overflow-hidden rounded-3xl transition-transform duration-300 hover:scale-[1.02]"
+                    style={{ aspectRatio: "3/4" }}
                   >
-                    <div className="font-display text-[14px] font-semibold text-white">
-                      {creator.name}, {creator.age}
+                    {/* SVG fills the entire card */}
+                    <div className="absolute inset-0">
+                      <Illustration />
                     </div>
-                    <div className="text-[11px] text-white/60">{creator.role}</div>
+                    {/* Label gradient at bottom */}
+                    <div
+                      className="absolute inset-x-0 bottom-0 p-4"
+                      style={{
+                        background:
+                          "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%)",
+                      }}
+                    >
+                      <div className="font-display text-[14px] font-semibold text-white">
+                        {creator.name}, {creator.age}
+                      </div>
+                      <div className="mt-0.5 text-[11px] text-white/60">{creator.role}</div>
+                    </div>
                   </div>
-                </div>
-              </Reveal>
+                </Reveal>
+              </div>
             );
           })}
         </div>
