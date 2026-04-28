@@ -24,6 +24,7 @@ export function StorefrontTypes() {
             <Reveal
               key={type.title}
               delay={((i % 6) + 1) as 1 | 2 | 3 | 4 | 5 | 6}
+              className="h-full"
             >
               <TypeCard {...type} />
             </Reveal>

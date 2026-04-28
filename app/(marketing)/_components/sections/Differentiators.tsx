@@ -12,7 +12,7 @@ export function Differentiators() {
         </Reveal>
         <div className="mt-16 grid gap-px overflow-hidden rounded-3xl bg-border-subtle md:grid-cols-2">
           {differentiatorsContent.items.map((item, i) => (
-            <Reveal key={item.title} delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
+            <Reveal key={item.title} delay={((i % 4) + 1) as 1 | 2 | 3 | 4} className="h-full">
               <DiffCard {...item} />
             </Reveal>
           ))}

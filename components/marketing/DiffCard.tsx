@@ -6,7 +6,7 @@ type DiffCardProps = {
 
 export function DiffCard({ icon, title, desc }: DiffCardProps) {
   return (
-    <div className="bg-dark-2 p-9">
+    <div className="h-full bg-dark-2 p-9">
       <div
         className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-[16px]"
         aria-hidden

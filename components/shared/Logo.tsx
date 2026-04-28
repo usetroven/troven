@@ -6,8 +6,8 @@ type LogoProps = {
 };
 
 const sizeClasses: Record<NonNullable<LogoProps["size"]>, string> = {
-  sm: "text-[17px]",
-  md: "text-[19px]",
+  sm: "text-[22px]",
+  md: "text-[26px]",
 };
 
 export function Logo({ size = "md", className }: LogoProps) {
