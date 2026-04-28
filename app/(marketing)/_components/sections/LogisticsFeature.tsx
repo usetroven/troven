@@ -7,11 +7,12 @@ export function LogisticsFeature() {
     <FeatureBlock
       id="logistics"
       tag={logisticsContent.tag}
-      title={logisticsContent.title}
+      title={<span className="whitespace-pre-line">{logisticsContent.title}</span>}
       desc={logisticsContent.desc}
-      bullets={logisticsContent.bullets}
-      visual={<MockLogistics />}
+      chips={logisticsContent.chips}
+      visual={<MockLogistics light />}
       reverse
+      light
     />
   );
 }

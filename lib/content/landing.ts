@@ -3,19 +3,17 @@ export const navContent = {
     { href: "#features", label: "Features" },
     { href: "#logistics", label: "Logistics" },
     { href: "#pricing", label: "Pricing" },
-    { href: "#about", label: "About" },
   ],
   login: { href: "/coming-soon", label: "Log in" },
   signup: { href: "/coming-soon", label: "Start free" },
 } as const;
 
 export const heroContent = {
-  eyebrow: "Creator commerce platform",
   headline: {
     lead: "Sell everything.",
     accent: "Own everything.",
   },
-  sub: "Tickets, digital products, 1:1 sessions, physical goods — multiple storefronts, one workspace, instant payouts to your bank.",
+  sub: "Multiple storefronts, one workspace. Digital products, events, bookings, physical goods — instant payouts to your bank.",
   actions: {
     primary: { href: "/coming-soon", label: "Create your store" },
     secondary: { href: "#features", label: "See how it works" },
@@ -29,85 +27,132 @@ export const heroContent = {
 } as const;
 
 export const marqueeContent = [
-  { title: "Digital products", detail: "Auto-delivered in 60 seconds" },
-  { title: "Event tickets", detail: "QR codes, tiers, capacity limits" },
-  { title: "1:1 bookings", detail: "Calendar sync, auto-confirmations" },
-  { title: "Physical goods", detail: "GIG · DHL · Glovo integration" },
-  { title: "Link-in-bio", detail: "All your links, one beautiful page" },
-  { title: "Affiliate programme", detail: "Refer and earn, automated" },
-  { title: "Instant payouts", detail: "Same-day, self-serve withdrawals" },
-  { title: "Coupon engine", detail: "Discount codes, flash sales" },
+  { title: "Digital products", detail: "Instant delivery" },
+  { title: "Event tickets", detail: "QR codes · FOMO" },
+  { title: "1:1 bookings", detail: "Calendar sync" },
+  { title: "GIG · DHL · Glovo", detail: "Logistics built in" },
+  { title: "Affiliate programme", detail: "Refer & earn" },
+  { title: "Coupon engine", detail: "Flash sales" },
+  { title: "Retainer plans", detail: "Predictable MRR" },
+  { title: "Instant payouts", detail: "Self-serve · same day" },
+  { title: "AI storefront design", detail: "Unique every time" },
+  { title: "Per-store analytics", detail: "Revenue · conversion" },
 ] as const;
 
 export const storefrontTypesContent = {
   eyebrow: "Every format",
   title: "One workspace.\nEvery storefront type.",
   subtitle:
-    "Create independent storefronts for each thing you sell — each with its own brand, URL, and product catalogue. All revenue flows into one wallet.",
+    "Create independent storefronts for each thing you sell — each with its own brand, URL, and product catalogue.",
   types: [
     {
       icon: "📦",
+      iconBg: "rgba(0,168,126,0.1)",
       title: "Digital products",
-      desc: "eBooks, templates, video courses, software — auto-delivered the moment payment clears. Files up to 2 GB.",
+      desc: "eBooks, templates, courses, software. Auto-delivered in 60 seconds.",
       tag: "Instant delivery",
     },
     {
       icon: "🎟",
+      iconBg: "rgba(73,79,223,0.1)",
       title: "Event tickets",
-      desc: "Multi-tier pricing, live capacity tracking, QR code delivery, and FOMO-inducing urgency signals built in.",
-      tag: "QR code delivery",
+      desc: "Multi-tier pricing, live capacity, QR delivery, and FOMO urgency built in.",
+      tag: "QR delivery",
     },
     {
       icon: "📅",
+      iconBg: "rgba(0,168,126,0.1)",
       title: "1:1 bookings",
-      desc: "Calendar availability, buffer times, session types, automatic .ics confirmations sent to both parties.",
+      desc: "Calendar availability, session types, buffer time, auto .ics confirmations.",
       tag: "Auto-confirmed",
     },
     {
-      icon: "🛒",
+      icon: "🚚",
+      iconBg: "rgba(236,126,0,0.1)",
       title: "Physical goods",
-      desc: "Full eCommerce with your choice of logistics partner — GIG Logistics, DHL, Glovo, or self-ship.",
+      desc: "eCommerce with GIG, DHL, Glovo — or self-ship. Buyer picks at checkout.",
       tag: "Logistics built in",
     },
     {
       icon: "🔗",
+      iconBg: "rgba(73,79,223,0.08)",
       title: "Link-in-bio",
-      desc: "All your storefronts and links in one page. Each link points to a real transactional storefront, not just a URL.",
+      desc: "All storefronts in one page. Each link leads somewhere transactional.",
       tag: "Converts traffic",
     },
     {
       icon: "🏬",
+      iconBg: "rgba(139,92,246,0.1)",
       title: "Multi-store hub",
-      desc: "Aggregate all your storefronts under one URL. Elegant layout that keeps each product line distinct.",
-      tag: "Everything, one place",
+      desc: "Aggregate everything under one URL. Elegant, no cannibalisation.",
+      tag: "One URL, all stores",
     },
   ],
 } as const;
 
+export const builtForYouContent = {
+  eyebrow: "Built for you",
+  title: "For every creator,\nevery craft.",
+  subtitle:
+    "Whether you teach, perform, ship, or inspire — Troven has a storefront built for exactly what you do.",
+  creators: [
+    { name: "Adaeze", age: 27, role: "Course creator · Digital marketing" },
+    { name: "Chukwuemeka", age: 32, role: "Event organiser · Tech conferences" },
+    { name: "Tife", age: 20, role: "Fashion content · Style guides" },
+    { name: "Coach Seun", age: 41, role: "Fitness coach · 1:1 training sessions" },
+  ],
+  founding: {
+    badge: "Founding creator programme",
+    title: "Be one of our\nfirst 500 creators.",
+    desc: "We're opening Troven to a small group of founding creators. You'll get locked-in pricing, a direct line to our team, and perks that will never be offered again.",
+    cta: { label: "Claim your spot →", href: "/coming-soon" },
+    spots: { current: 347, total: 500 },
+    perks: [
+      {
+        icon: "🔒",
+        bg: "rgba(0,212,160,0.1)",
+        title: "Price lock forever",
+        desc: "Pay today's rate for life — never adjusted up",
+      },
+      {
+        icon: "⚡",
+        bg: "rgba(73,79,223,0.1)",
+        title: "First access to every feature",
+        desc: "AI design, affiliates, custom domains — yours first",
+      },
+      {
+        icon: "✦",
+        bg: "rgba(245,196,24,0.1)",
+        title: "Founding creator badge",
+        desc: "A permanent mark on your public storefront profile",
+      },
+    ],
+  },
+} as const;
+
 export const analyticsContent = {
-  tag: "Per-storefront analytics",
-  title: "Know exactly what’s working — for every store.",
-  desc: "Each storefront has its own analytics dashboard. Track revenue, orders, conversion rates, top products, and customer geography — independently per store, or aggregated across your whole workspace.",
-  bullets: [
-    "Revenue breakdown by storefront, day, product, and country",
-    "Conversion funnel — visitors → checkout → paid",
-    "Top-performing products ranked by GMV and units",
-    "Affiliate attribution — see which partner drove which sale",
-    "Export to CSV anytime — no lock-in",
+  tag: "Analytics",
+  title: "Know what's\nworking. Per store.",
+  desc: "Revenue, orders, conversion, and top products — independently per storefront or aggregated across your whole workspace.",
+  chips: [
+    "Revenue breakdown",
+    "Conversion funnel",
+    "Top products",
+    "Affiliate attribution",
+    "CSV export",
   ],
 } as const;
 
 export const logisticsContent = {
-  tag: "Logistics integration",
-  title: "Ship globally. Choose your own carrier.",
-  desc: "Troven integrates with Nigeria’s leading logistics vendors — GIG Logistics, DHL, and Glovo. Connect multiple carriers simultaneously and let customers choose at checkout. Or handle fulfilment manually — you’re always in control.",
-  bullets: [
-    "GIG Logistics — nationwide Nigeria delivery",
-    "DHL Express — international shipping to 220+ countries",
-    "Glovo — same-day urban delivery",
-    "Multiple carriers active at once — buyer chooses at checkout",
-    "Manual / self-ship always available as fallback",
-    "Automatic tracking updates sent to the buyer via email",
+  tag: "Logistics",
+  title: "Ship globally.\nYour choice of carrier.",
+  desc: "Connect GIG, DHL, and Glovo simultaneously. Buyers choose at checkout. You set the rates.",
+  chips: [
+    "GIG — nationwide",
+    "DHL — international",
+    "Glovo — same day",
+    "Self-ship option",
+    "Tracking updates",
   ],
   vendors: [
     {
@@ -115,14 +160,14 @@ export const logisticsContent = {
       name: "GIG Logistics",
       subtitle: "Nigeria-wide delivery",
       status: "active" as const,
-      iconTone: { bg: "rgba(0,168,126,0.12)", color: "var(--troven-accent)" },
+      iconTone: { bg: "rgba(0,168,126,0.1)", color: "#00a87e" },
     },
     {
       abbr: "DHL",
       name: "DHL Express",
-      subtitle: "International shipping",
+      subtitle: "International · 220+ countries",
       status: "active" as const,
-      iconTone: { bg: "rgba(255,200,0,0.08)", color: "#ffd700" },
+      iconTone: { bg: "rgba(255,200,0,0.1)", color: "#b8860b" },
     },
     {
       abbr: "GLV",
@@ -133,132 +178,119 @@ export const logisticsContent = {
     },
     {
       abbr: "✋",
-      name: "Self / Manual delivery",
+      name: "Self / Manual",
       subtitle: "Handle fulfilment yourself",
       status: "always" as const,
-      iconTone: { bg: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" },
+      iconTone: { bg: "rgba(0,0,0,0.04)", color: "rgba(0,0,0,0.4)" },
     },
   ],
 } as const;
 
 export const couponsContent = {
   tag: "Coupon engine",
-  title: "Discount codes,\nflash sales, bundles.",
-  desc: "Create percentage or fixed-amount coupons, set expiry dates and usage limits, restrict to specific products or storefronts. Run flash sales without changing your listed price.",
-  bullets: [
-    "Percentage or fixed-amount discounts",
-    "Usage caps — limit to N uses total or per buyer",
-    "Expiry dates and scheduled activation",
-    "Restrict to specific products, storefronts, or buyer emails",
-    "One-click share link with coupon pre-applied",
-  ],
+  title: "Discount codes,\nflash sales.",
+  desc: "Percentage or fixed discounts, usage caps, expiry dates, product-specific. One-click share.",
   coupons: [
     {
       code: "LAUNCH50",
-      meta: "50% off · Expires Apr 30 · 48/100 used",
+      meta: "50% off · Expires Apr 30\n48/100 used",
       value: "−50%",
       expired: false,
     },
     {
       code: "VIP2026",
-      meta: "₦5,000 off · No expiry · 12/∞ used",
+      meta: "₦5k off · No expiry\n12 used",
       value: "−₦5k",
       expired: false,
-    },
-    {
-      code: "EARLYB",
-      meta: "Expired · 100/100 used",
-      value: "Done",
-      expired: true,
     },
   ],
 } as const;
 
 export const retainersContent = {
-  tag: "Premium retainers",
-  title: "Predictable income.\nFrom every storefront type.",
-  desc: "Create recurring retainer plans and subscription tiers on any storefront. Coaching clients on monthly plans, digital product libraries with recurring access, ticket season passes — the retainer model adapts to what you sell.",
-  bullets: [
-    "Monthly or annual billing cycles",
-    "Tiered plans with different access levels per tier",
-    "Automatic renewal with email nudge before charge",
-    "MRR dashboard — see your predictable monthly income",
-    "Works with bookings, digital products, and physical subscriptions",
-    "Grace period on failed payments — no abrupt access cuts",
-  ],
-  label: "Retainer plans · Coaching Sessions",
+  tag: "Retainers",
+  title: "Predictable income.\nEvery month.",
+  desc: "Monthly retainer plans on any storefront type. Coaching, libraries, subscriptions, season passes.",
+  label: "Retainer plans · Coaching",
   plans: [
     {
       name: "Starter",
-      price: "₦30,000",
+      price: "₦30k",
       period: "/mo",
-      desc: "2 sessions per month · Email support",
+      desc: "2 sessions · email support",
       featured: false,
     },
     {
-      name: "Growth · Most popular",
-      price: "₦60,000",
+      name: "Growth · Popular",
+      price: "₦60k",
       period: "/mo",
-      desc: "4 sessions · Priority WhatsApp + reviews",
+      desc: "4 sessions · WhatsApp + reviews",
       featured: true,
     },
     {
       name: "VIP",
-      price: "₦120,000",
+      price: "₦120k",
       period: "/mo",
-      desc: "Unlimited sessions · Dedicated Slack",
+      desc: "Unlimited · dedicated Slack",
       featured: false,
     },
   ],
   stats: [
-    { text: "3 active subscribers", tone: "muted" as const },
+    { text: "3 subscribers", tone: "muted" as const },
     { text: "₦270k MRR", tone: "accent" as const },
   ],
 } as const;
 
 export const differentiatorsContent = {
-  eyebrow: "Built different",
-  title: "No hidden fees.\nNo fund holds. No lock-in.",
+  eyebrow: "Why Troven",
+  title: "Built honest.\nBuilt different.",
   items: [
     {
       icon: "⚡",
-      title: "Transparent FX rates",
-      desc: "See the exact exchange rate before every withdrawal. CBN mid-market + 0.5% spread — shown on screen before you approve. No surprises.",
+      iconBg: "rgba(255,200,0,0.12)",
+      title: "Transparent FX",
+      desc: "Live rate shown before every withdrawal. No hidden spread.",
     },
     {
       icon: "💸",
-      title: "Instant self-serve payouts",
-      desc: "Withdraw to your bank yourself. No support tickets, no delays. Same-day for requests before 3 PM WAT. Next-day otherwise.",
+      iconBg: "rgba(0,168,126,0.1)",
+      title: "Instant payouts",
+      desc: "Self-serve same-day withdrawal. No support tickets.",
     },
     {
-      icon: "🔐",
-      title: "Buyer access is permanent",
-      desc: "Your customers keep lifetime access to what they paid for — even if you pause your plan. Enforced at the database level, not a promise.",
+      icon: "♾️",
+      iconBg: "rgba(73,79,223,0.1)",
+      title: "Buyer access forever",
+      desc: "Your customers keep lifetime access even if you pause.",
     },
     {
       icon: "📊",
-      title: "Per-storefront analytics",
-      desc: "Each storefront has its own analytics dashboard. Revenue, orders, conversion rates, and affiliate attribution — independently, per store.",
+      iconBg: "rgba(226,59,74,0.1)",
+      title: "Per-store analytics",
+      desc: "Revenue, conversion, top products — per storefront.",
     },
     {
       icon: "🚚",
-      title: "Logistics of your choice",
-      desc: "Connect GIG, DHL, Glovo, or self-ship. Multiple carriers simultaneously. Buyer picks at checkout. You control rates and handling.",
+      iconBg: "rgba(236,126,0,0.1)",
+      title: "Your logistics choice",
+      desc: "GIG, DHL, Glovo or self-ship. Multiple at once.",
     },
     {
       icon: "📤",
-      title: "Your data, always yours",
-      desc: "Export all customer data and product files anytime. CSV, API, or bulk download. No lock-in — Troven earns your loyalty, not your captivity.",
+      iconBg: "rgba(0,0,0,0.05)",
+      title: "Your data, always",
+      desc: "Export everything. CSV, API. No lock-in by design.",
     },
     {
       icon: "✦",
-      title: "AI-powered storefront design",
-      desc: "Each storefront can generate a unique theme using AI — colour palettes, typography, layout — to match your brand, not look like everyone else.",
+      iconBg: "rgba(139,92,246,0.1)",
+      title: "AI storefront design",
+      desc: "Unique theme generated for each store. No two alike.",
     },
     {
       icon: "👥",
-      title: "Team access & roles",
-      desc: "Add support staff, managers, and collaborators. Role-based permissions so the right people see the right things. Per-storefront team scoping.",
+      iconBg: "rgba(0,168,126,0.08)",
+      title: "Team access",
+      desc: "Add staff, managers, collaborators with role permissions.",
     },
   ],
 } as const;
@@ -266,10 +298,9 @@ export const differentiatorsContent = {
 export const pricingContent = {
   eyebrow: "Pricing",
   title: "Simple, honest pricing.",
-  subtitle:
-    "Start free. Upgrade when you’re ready. Every fee is shown before it’s charged.",
+  subtitle: "No hidden FX spread. Every fee shown before it's charged.",
   footnote:
-    "All plans include: transparent FX rates · self-serve payouts · lifetime buyer access guarantee · NDPR compliance",
+    "Transparent FX · Self-serve payouts · Lifetime buyer access guarantee · NDPR compliant",
   tiers: [
     {
       plan: "Starter",
@@ -277,11 +308,10 @@ export const pricingContent = {
       period: "forever",
       fee: "5% per sale",
       features: [
-        "Up to 3 storefronts",
+        "3 storefronts",
         "Digital, events, bookings",
         "Transparent FX payouts",
         "Basic analytics",
-        "1 team member",
       ],
       cta: { label: "Get started free", href: "/coming-soon" },
       featured: false,
@@ -294,10 +324,9 @@ export const pricingContent = {
       fee: "2% per sale",
       badge: "Most popular",
       features: [
-        "Up to 5 storefronts",
-        "All storefront types",
-        "Logistics integrations",
-        "Coupon & discount engine",
+        "5 storefronts + all types",
+        "GIG · DHL · Glovo logistics",
+        "Coupon engine",
         "Retainer / subscription plans",
         "Advanced analytics",
         "3 team members",
@@ -313,11 +342,10 @@ export const pricingContent = {
       fee: "0.5% per sale",
       features: [
         "Unlimited storefronts",
-        "Custom domain per storefront",
+        "Custom domain per store",
         "AI storefront design",
         "Affiliate programme",
         "API access",
-        "Priority payout processing",
         "Unlimited team members",
       ],
       cta: { label: "Go Pro", href: "/coming-soon" },
@@ -329,9 +357,9 @@ export const pricingContent = {
 
 export const ctaContent = {
   title: "Your craft deserves\na better platform.",
-  sub: "Join creators across Africa and beyond who are building their digital business on Troven.",
+  sub: "Join creators across Africa building their digital business on Troven.",
   actions: {
-    primary: { href: "/coming-soon", label: "Create your store free" },
+    primary: { href: "/coming-soon", label: "Create your store →" },
     secondary: { href: "/coming-soon", label: "Talk to us" },
   },
   note: "No credit card required · Free to start · Cancel anytime",

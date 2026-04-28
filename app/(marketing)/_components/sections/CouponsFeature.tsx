@@ -8,7 +8,6 @@ export function CouponsFeature() {
       tag={couponsContent.tag}
       title={<span className="whitespace-pre-line">{couponsContent.title}</span>}
       desc={couponsContent.desc}
-      bullets={couponsContent.bullets}
       visual={<MockCoupon />}
       dark
     />

@@ -8,7 +8,6 @@ export function RetainersFeature() {
       tag={retainersContent.tag}
       title={<span className="whitespace-pre-line">{retainersContent.title}</span>}
       desc={retainersContent.desc}
-      bullets={retainersContent.bullets}
       visual={<MockRetainer />}
       reverse
     />

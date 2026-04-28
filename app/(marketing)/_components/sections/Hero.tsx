@@ -76,11 +76,7 @@ export function Hero() {
       </div>
 
       <div className="relative z-10">
-        <div className="anim-fade-up anim-delay-1 mx-auto mb-7 flex items-center justify-center gap-2 text-[12px] font-medium uppercase tracking-[2px] text-accent before:h-px before:w-10 before:bg-accent/40 before:content-[''] after:h-px after:w-10 after:bg-accent/40 after:content-['']">
-          {heroContent.eyebrow}
-        </div>
-
-        <h1 className="anim-fade-up anim-delay-2 t-display-hero mb-7 text-white">
+        <h1 className="anim-fade-up anim-delay-1 t-display-hero mb-7 text-white">
           {heroContent.headline.lead}
           <br />
           <em className="not-italic text-accent">
@@ -88,11 +84,11 @@ export function Hero() {
           </em>
         </h1>
 
-        <p className="anim-fade-up anim-delay-3 mx-auto mb-12 max-w-[520px] text-[18px] leading-[1.6] text-white/45">
+        <p className="anim-fade-up anim-delay-2 mx-auto mb-12 max-w-[520px] text-[18px] leading-[1.6] text-white/45">
           {heroContent.sub}
         </p>
 
-        <div className="anim-fade-up anim-delay-4 flex flex-wrap justify-center gap-3">
+        <div className="anim-fade-up anim-delay-3 flex flex-wrap justify-center gap-3">
           <Button
             as="a"
             href={heroContent.actions.primary.href}
@@ -111,7 +107,7 @@ export function Hero() {
           </Button>
         </div>
 
-        <div className="anim-fade-up anim-delay-5 mt-[72px] flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+        <div className="anim-fade-up anim-delay-4 mt-[72px] flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {heroContent.stats.map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-x-12">
               {i > 0 ? (
