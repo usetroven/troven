@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/Button";
 import { FloatCard } from "@/components/ui/FloatCard";
-import { StatBlock } from "@/components/ui/StatBlock";
 import { heroContent } from "@/lib/content/landing";
 
 export function Hero() {
@@ -105,20 +104,6 @@ export function Hero() {
           >
             {heroContent.actions.secondary.label}
           </Button>
-        </div>
-
-        <div className="anim-fade-up anim-delay-4 mt-[72px] flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-          {heroContent.stats.map((stat, i) => (
-            <div key={stat.label} className="flex items-center gap-x-12">
-              {i > 0 ? (
-                <span
-                  aria-hidden
-                  className="hidden h-6 w-px bg-white/10 md:block"
-                />
-              ) : null}
-              <StatBlock value={stat.value} label={stat.label} />
-            </div>
-          ))}
         </div>
       </div>
     </section>
