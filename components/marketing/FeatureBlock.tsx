@@ -96,7 +96,7 @@ export function FeatureBlock({
     <Reveal
       direction={reverse ? "left" : "right"}
       className={cn(
-        "flex aspect-[4/3] items-center justify-center overflow-hidden rounded-3xl border",
+        "flex w-full items-center justify-center overflow-hidden rounded-3xl border sm:aspect-[4/3]",
         isDark
           ? "border-border-subtle bg-dark-3"
           : "border-black/8 bg-white",
@@ -107,7 +107,7 @@ export function FeatureBlock({
   );
 
   const content = (
-    <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-20 md:gap-20 md:px-12 md:grid-cols-2">
+    <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-14 md:grid-cols-2 md:gap-20 md:px-12 md:py-20">
       {reverse ? (
         <>
           <div className="md:order-1">{visualPane}</div>

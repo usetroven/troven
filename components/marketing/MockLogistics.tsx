@@ -11,14 +11,14 @@ const statusLabel: Record<(typeof logisticsContent.vendors)[number]["status"], s
 
 export function MockLogistics({ light = false }: Props) {
   return (
-    <div className="flex w-full flex-col gap-3 p-7">
+    <div className="flex w-full flex-col gap-3 p-4 sm:p-7">
       <div
         className={cn(
           "mb-1 text-[10px] uppercase tracking-[1px]",
           light ? "text-black/30" : "text-white/25",
         )}
       >
-        Connected logistics vendors
+        {logisticsContent.mockLabel}
       </div>
       {logisticsContent.vendors.map((vendor) => (
         <div
@@ -81,7 +81,7 @@ export function MockLogistics({ light = false }: Props) {
       >
         <span className="text-[18px] text-teal">+</span>
         <span className={cn("text-[13px]", light ? "text-black/35" : "text-white/35")}>
-          Connect another carrier
+          {logisticsContent.connectLabel}
         </span>
       </button>
     </div>

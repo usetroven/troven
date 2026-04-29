@@ -2,36 +2,12 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { analyticsContent } from "@/lib/content/landing";
 
 type ChartType = "bar" | "pie" | "progress";
 
-const BARS = [
-  { val: 88, label: "₦128k", name: "Design Mastery" },
-  { val: 62, label: "₦84k", name: "Marketing 101" },
-  { val: 44, label: "₦56k", name: "Templates" },
-  { val: 28, label: "₦36k", name: "Finance Guide" },
-];
-
-const PIE_DATA = [
-  { pct: 0.4, label: "Design Mastery", color: "#00d4a0" },
-  { pct: 0.26, label: "Marketing 101", color: "#494fdf" },
-  { pct: 0.17, label: "Templates", color: "#ec7e00" },
-  { pct: 0.11, label: "Finance Guide", color: "#e23b4a" },
-  { pct: 0.06, label: "Others", color: "#e8e8ea" },
-];
-
-const TRACK = [
-  { label: "Design Mastery", value: "₦128k", pct: 88, from: "#00a87e", to: "#00d4a0" },
-  { label: "Marketing 101", value: "₦84k", pct: 62, from: "#494fdf", to: "#8b91ff" },
-  { label: "Templates Pack", value: "₦56k", pct: 44, from: "#ec7e00", to: "#f5c518" },
-  { label: "Finance Guide", value: "₦36k", pct: 28, from: "#e23b4a", to: "#ff6b7a" },
-];
-
-const MIN_HEIGHTS: Record<ChartType, string> = {
-  bar: "360px",
-  pie: "340px",
-  progress: "370px",
-};
+const { bars: BARS, pie: PIE_DATA, track: TRACK, stats: STATS, title, subtitle, toggleLabels } =
+  analyticsContent.mock;
 
 function PieChart({ animate }: { animate: boolean }) {
   const circ = 2 * Math.PI * 44;
@@ -151,19 +127,14 @@ export function AnalyticsChartMock() {
     animFrameRef.current = requestAnimationFrame(draw);
   }, []);
 
-  const switchChart = useCallback(
-    (type: ChartType) => {
-      setChart(type);
-      if (type === "pie") setAnimatePie(true);
-      if (type === "progress") setAnimateTrack(true);
-    },
-    [],
-  );
+  const switchChart = useCallback((type: ChartType) => {
+    setChart(type);
+    if (type === "pie") setAnimatePie(true);
+    if (type === "progress") setAnimateTrack(true);
+  }, []);
 
-  // Trigger bar draw when chart becomes "bar"
   useEffect(() => {
     if (chart !== "bar") return;
-    // Small delay so canvas is mounted
     const t = setTimeout(drawBars, 80);
     return () => {
       clearTimeout(t);
@@ -171,13 +142,11 @@ export function AnalyticsChartMock() {
     };
   }, [chart, drawBars]);
 
-  // Reset pie/track animation when switching away then back
   useEffect(() => {
     if (chart !== "pie") setAnimatePie(false);
     if (chart !== "progress") setAnimateTrack(false);
   }, [chart]);
 
-  // IntersectionObserver — auto-cycle once on entry
   useEffect(() => {
     if (autoCycled) return;
     const el = containerRef.current;
@@ -207,63 +176,64 @@ export function AnalyticsChartMock() {
     return () => obs.disconnect();
   }, [autoCycled, switchChart]);
 
+  const chartKeys = Object.keys(toggleLabels) as ChartType[];
+
   return (
-    <div
-      ref={containerRef}
-      className="flex w-full flex-col gap-0 p-6 transition-[min-height] duration-500"
-      style={{ minHeight: MIN_HEIGHTS[chart] }}
-    >
+    <div ref={containerRef} className="flex w-full flex-col gap-0 p-4 sm:p-6">
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <div className="font-display text-[14px] font-semibold text-fg-primary">
-            Top products
-          </div>
-          <div className="mt-0.5 text-[11px] text-black/40">
-            Ade&apos;s eBooks · This month
-          </div>
+          <div className="font-display text-[14px] font-semibold text-fg-primary">{title}</div>
+          <div className="mt-0.5 text-[11px] text-black/40">{subtitle}</div>
         </div>
         {/* Toggle */}
         <div className="flex overflow-hidden rounded-pill border border-black/8 bg-surface">
-          {(["bar", "pie", "progress"] as ChartType[]).map((type) => (
+          {chartKeys.map((type) => (
             <button
               key={type}
               type="button"
               onClick={() => switchChart(type)}
               className={cn(
-                "cursor-pointer border-none px-3 py-1.5 font-display text-[11px] font-medium transition-all",
-                chart === type
-                  ? "bg-dark text-white"
-                  : "bg-transparent text-black/50",
+                "cursor-pointer border-none px-2.5 py-1.5 font-display text-[10px] font-medium transition-all sm:px-3 sm:text-[11px]",
+                chart === type ? "bg-dark text-white" : "bg-transparent text-black/50",
               )}
             >
-              {type === "progress" ? "Track" : type.charAt(0).toUpperCase() + type.slice(1)}
+              {toggleLabels[type]}
             </button>
           ))}
         </div>
       </div>
 
       {/* Stat pills */}
-      <div className="mb-5 grid grid-cols-3 gap-2">
-        <div className="rounded-xl border border-black/8 bg-surface p-3">
-          <div className="font-display text-[18px] font-medium text-fg-primary">₦320k</div>
-          <div className="mt-0.5 text-[10px] text-black/40">Revenue</div>
-        </div>
-        <div className="rounded-xl border border-black/8 bg-surface p-3">
-          <div className="font-display text-[18px] font-medium text-fg-primary">430</div>
-          <div className="mt-0.5 text-[10px] text-black/40">Orders</div>
-        </div>
-        <div className="rounded-xl border border-teal/20 bg-teal/[0.06] p-3">
-          <div className="font-display text-[18px] font-medium text-teal">+18%</div>
-          <div className="mt-0.5 text-[10px] text-black/40">Growth</div>
-        </div>
+      <div className="mb-5 grid grid-cols-3 gap-1.5 sm:gap-2">
+        {STATS.map((stat) => (
+          <div
+            key={stat.label}
+            className={cn(
+              "rounded-xl border p-2 sm:p-3",
+              stat.tone === "teal"
+                ? "border-teal/20 bg-teal/[0.06]"
+                : "border-black/8 bg-surface",
+            )}
+          >
+            <div
+              className={cn(
+                "font-display text-[15px] font-medium sm:text-[18px]",
+                stat.tone === "teal" ? "text-teal" : "text-fg-primary",
+              )}
+            >
+              {stat.value}
+            </div>
+            <div className="mt-0.5 text-[10px] text-black/40">{stat.label}</div>
+          </div>
+        ))}
       </div>
 
       {/* Bar chart */}
       {chart === "bar" && (
         <div className="flex flex-col gap-2">
           <canvas ref={canvasRef} style={{ width: "100%", height: "130px", display: "block" }} />
-          <div className="grid grid-cols-4 gap-1">
+          <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${BARS.length}, 1fr)` }}>
             {BARS.map((b) => (
               <div key={b.name} className="text-center text-[10px] text-black/40">
                 {b.name}
@@ -275,15 +245,12 @@ export function AnalyticsChartMock() {
 
       {/* Pie chart */}
       {chart === "pie" && (
-        <div className="flex flex-1 items-center gap-5">
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-5">
           <PieChart animate={animatePie} />
-          <div className="flex flex-1 flex-col gap-2">
+          <div className="flex w-full flex-col gap-2">
             {PIE_DATA.map((d) => (
               <div key={d.label} className="flex items-center gap-2">
-                <div
-                  className="h-2.5 w-2.5 shrink-0 rounded-sm"
-                  style={{ background: d.color }}
-                />
+                <div className="h-2.5 w-2.5 shrink-0 rounded-sm" style={{ background: d.color }} />
                 <span className="flex-1 text-[12px] text-black/60">{d.label}</span>
                 <span className="font-display text-[12px] font-medium text-fg-primary">
                   {Math.round(d.pct * 100)}%
@@ -294,16 +261,14 @@ export function AnalyticsChartMock() {
         </div>
       )}
 
-      {/* Progress / Track chart */}
+      {/* Track chart */}
       {chart === "progress" && (
         <div className="flex flex-1 flex-col gap-3">
           {TRACK.map((t, i) => (
             <div key={t.label}>
               <div className="mb-1.5 flex justify-between">
                 <span className="text-[12px] text-black/60">{t.label}</span>
-                <span className="font-display text-[12px] font-medium text-fg-primary">
-                  {t.value}
-                </span>
+                <span className="font-display text-[12px] font-medium text-fg-primary">{t.value}</span>
               </div>
               <div className="h-2.5 overflow-hidden rounded-pill border border-black/8 bg-surface">
                 <div

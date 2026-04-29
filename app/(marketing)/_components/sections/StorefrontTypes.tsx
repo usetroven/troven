@@ -6,7 +6,7 @@ export function StorefrontTypes() {
   return (
     <div
       id="features"
-      className="relative overflow-hidden px-6 py-[100px] md:px-12"
+      className="relative overflow-hidden px-6 py-16 md:px-12 md:py-[100px]"
       style={{
         background:
           "linear-gradient(135deg, #0e0f11 0%, #141a1f 50%, #0a0f12 100%)",
@@ -35,7 +35,7 @@ export function StorefrontTypes() {
           {storefrontTypesContent.subtitle}
         </Reveal>
 
-        <div className="mt-14 grid gap-3.5 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-3.5 sm:grid-cols-2 md:mt-14 md:grid-cols-3">
           {storefrontTypesContent.types.map((type, i) => (
             <Reveal
               key={type.title}

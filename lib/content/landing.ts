@@ -24,6 +24,22 @@ export const heroContent = {
     { value: "150", label: "countries reached" },
     { value: "4.9 ★", label: "creator satisfaction" },
   ],
+  floatCards: {
+    revenue: {
+      label: "Today's revenue",
+      value: "₦84,500",
+      change: "↑ +34% vs yesterday",
+    },
+    orders: [
+      { text: "Live order · VIP Ticket · ₦15,000", tone: "accent" as const },
+      { text: "DHL shipment dispatched", tone: "iris" as const },
+    ],
+    payout: {
+      label: "Payout ready",
+      value: "₦320,000",
+      note: "Withdrawing · same day",
+    },
+  },
 } as const;
 
 export const marqueeContent = [
@@ -106,7 +122,7 @@ export const builtForYouContent = {
     title: "Be one of our\nfirst 500 creators.",
     desc: "We're opening Troven to a small group of founding creators. You'll get locked-in pricing, a direct line to our team, and perks that will never be offered again.",
     cta: { label: "Claim your spot →", href: "/coming-soon" },
-    spots: { current: 347, total: 500 },
+    spots: { current: 347, total: 500, claimedLabel: "spots claimed" },
     perks: [
       {
         icon: "🔒",
@@ -141,12 +157,43 @@ export const analyticsContent = {
     "Affiliate attribution",
     "CSV export",
   ],
+  mock: {
+    title: "Top products",
+    subtitle: "Ade's eBooks · This month",
+    toggleLabels: { bar: "Bar", pie: "Pie", progress: "Track" } as const,
+    stats: [
+      { value: "₦320k", label: "Revenue", tone: "default" as const },
+      { value: "430", label: "Orders", tone: "default" as const },
+      { value: "+18%", label: "Growth", tone: "teal" as const },
+    ],
+    bars: [
+      { val: 88, label: "₦128k", name: "Design Mastery" },
+      { val: 62, label: "₦84k", name: "Marketing 101" },
+      { val: 44, label: "₦56k", name: "Templates" },
+      { val: 28, label: "₦36k", name: "Finance Guide" },
+    ],
+    pie: [
+      { pct: 0.4, label: "Design Mastery", color: "#00d4a0" },
+      { pct: 0.26, label: "Marketing 101", color: "#494fdf" },
+      { pct: 0.17, label: "Templates", color: "#ec7e00" },
+      { pct: 0.11, label: "Finance Guide", color: "#e23b4a" },
+      { pct: 0.06, label: "Others", color: "#e8e8ea" },
+    ],
+    track: [
+      { label: "Design Mastery", value: "₦128k", pct: 88, from: "#00a87e", to: "#00d4a0" },
+      { label: "Marketing 101", value: "₦84k", pct: 62, from: "#494fdf", to: "#8b91ff" },
+      { label: "Templates Pack", value: "₦56k", pct: 44, from: "#ec7e00", to: "#f5c518" },
+      { label: "Finance Guide", value: "₦36k", pct: 28, from: "#e23b4a", to: "#ff6b7a" },
+    ],
+  },
 } as const;
 
 export const logisticsContent = {
   tag: "Logistics",
   title: "Ship globally.\nYour choice of carrier.",
   desc: "Connect GIG, DHL, and Glovo simultaneously. Buyers choose at checkout. You set the rates.",
+  mockLabel: "Connected logistics vendors",
+  connectLabel: "Connect another carrier",
   chips: [
     "GIG — nationwide",
     "DHL — international",
@@ -190,6 +237,8 @@ export const couponsContent = {
   tag: "Coupon engine",
   title: "Discount codes,\nflash sales.",
   desc: "Percentage or fixed discounts, usage caps, expiry dates, product-specific. One-click share.",
+  mockLabel: "Active coupons",
+  createLabel: "Create new coupon",
   coupons: [
     {
       code: "LAUNCH50",

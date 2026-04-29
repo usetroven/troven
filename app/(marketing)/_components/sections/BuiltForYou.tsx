@@ -174,7 +174,7 @@ export function BuiltForYou() {
   const spotsBarPct = (founding.spots.current / founding.spots.total) * 100;
 
   return (
-    <section className="bg-surface px-6 py-[100px] md:px-12">
+    <section className="bg-surface px-6 py-16 md:px-12 md:py-[100px]">
       <div className="mx-auto max-w-[1200px]">
         <Reveal className="t-eyebrow mb-5 text-teal">{eyebrow}</Reveal>
         <Reveal as="h2" className="t-section mb-4 whitespace-pre-line text-fg-primary" delay={1}>
@@ -234,14 +234,14 @@ export function BuiltForYou() {
           >
             <div className="grid md:grid-cols-2">
               {/* Left */}
-              <div className="border-b border-white/6 p-10 md:border-b-0 md:border-r">
+              <div className="border-b border-white/6 p-6 md:border-b-0 md:border-r md:p-10">
                 <div className="mb-5 inline-flex items-center gap-2 rounded-pill border border-accent/25 bg-accent/10 px-4 py-1.5">
                   <span className="anim-pulse h-1.5 w-1.5 rounded-full bg-accent" />
                   <span className="text-[12px] font-medium tracking-[0.5px] text-accent">
                     {founding.badge}
                   </span>
                 </div>
-                <h3 className="mb-3 whitespace-pre-line font-display text-[28px] font-medium leading-[1.15] tracking-[-0.6px] text-white">
+                <h3 className="mb-3 whitespace-pre-line font-display text-[22px] font-medium leading-[1.15] tracking-[-0.5px] text-white sm:text-[28px] sm:tracking-[-0.6px]">
                   {founding.title}
                 </h3>
                 <p className="mb-7 max-w-[280px] text-[14px] leading-[1.65] text-white/45">
@@ -256,15 +256,15 @@ export function BuiltForYou() {
               </div>
 
               {/* Right */}
-              <div className="p-10">
+              <div className="p-6 md:p-10">
                 {/* Spot counter */}
                 <div className="mb-5">
                   <div className="mb-2.5 flex items-baseline justify-between">
-                    <span className="font-display text-[32px] font-medium tracking-[-0.5px] text-white">
+                    <span className="font-display text-[26px] font-medium tracking-[-0.5px] text-white sm:text-[32px]">
                       {founding.spots.current}
                     </span>
                     <span className="text-[13px] text-white/35">
-                      of {founding.spots.total} spots claimed
+                      of {founding.spots.total} {founding.spots.claimedLabel}
                     </span>
                   </div>
                   <div className="h-1.5 overflow-hidden rounded-pill bg-white/8">

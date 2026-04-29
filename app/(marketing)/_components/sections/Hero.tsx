@@ -4,7 +4,7 @@ import { heroContent } from "@/lib/content/landing";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-[120px] pb-20 text-center md:px-10">
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-[90px] pb-16 text-center md:px-10 md:pt-[120px] md:pb-20">
       {/* Ambient background glows */}
       <div
         aria-hidden
@@ -34,40 +34,51 @@ export function Hero() {
         <div className="anim-float-in-bob delay-a absolute left-[4%] top-[38%]">
           <FloatCard>
             <div className="mb-2 text-[11px] uppercase tracking-[0.5px] text-white/35">
-              Today&rsquo;s revenue
+              {heroContent.floatCards.revenue.label}
             </div>
             <div className="font-display text-[22px] font-medium tracking-[-0.3px]">
-              ₦84,500
+              {heroContent.floatCards.revenue.value}
             </div>
             <div className="mt-1 text-[12px] font-medium text-accent">
-              ↑ +34% vs yesterday
+              {heroContent.floatCards.revenue.change}
             </div>
           </FloatCard>
         </div>
 
         <div className="anim-float-in-bob delay-b absolute right-[4%] top-[32%] flex flex-col gap-2.5">
-          <span className="inline-flex items-center gap-2 rounded-pill border border-accent/25 bg-accent/10 px-3 py-1.5 text-[13px] text-accent">
-            <span className="anim-pulse h-2 w-2 rounded-full bg-accent" />
-            Live order · VIP Ticket · ₦15,000
-          </span>
-          <span className="inline-flex items-center gap-2 rounded-pill border border-iris/30 bg-iris/10 px-3 py-1.5 text-[13px] text-iris">
-            <span className="anim-pulse h-2 w-2 rounded-full bg-iris" />
-            DHL shipment dispatched
-          </span>
+          {heroContent.floatCards.orders.map((order) => (
+            <span
+              key={order.text}
+              className={
+                order.tone === "accent"
+                  ? "inline-flex items-center gap-2 rounded-pill border border-accent/25 bg-accent/10 px-3 py-1.5 text-[13px] text-accent"
+                  : "inline-flex items-center gap-2 rounded-pill border border-iris/30 bg-iris/10 px-3 py-1.5 text-[13px] text-iris"
+              }
+            >
+              <span
+                className={
+                  order.tone === "accent"
+                    ? "anim-pulse h-2 w-2 rounded-full bg-accent"
+                    : "anim-pulse h-2 w-2 rounded-full bg-iris"
+                }
+              />
+              {order.text}
+            </span>
+          ))}
         </div>
 
         <div className="anim-float-in-bob delay-c absolute right-[14%] bottom-[14%]">
           <FloatCard className="min-w-[180px]">
             <div className="mb-2 text-[11px] uppercase tracking-[0.5px] text-white/35">
-              Payout ready
+              {heroContent.floatCards.payout.label}
             </div>
             <div className="font-display text-[18px] font-medium tracking-[-0.3px]">
-              ₦320,000
+              {heroContent.floatCards.payout.value}
             </div>
             <div className="mt-2 flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-teal" />
               <span className="text-[11px] text-white/35">
-                Withdrawing · same day
+                {heroContent.floatCards.payout.note}
               </span>
             </div>
           </FloatCard>

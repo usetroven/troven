@@ -12,7 +12,7 @@ type TypeCardProps = {
 export function TypeCard({ icon, iconBg, title, desc, tag }: TypeCardProps) {
   return (
     <Link href="/coming-soon" className="block h-full">
-      <div className="group relative h-full overflow-hidden rounded-3xl border border-white/9 p-8 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-white/16 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+      <div className="group relative h-full overflow-hidden rounded-3xl border border-white/9 p-6 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-white/16 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] md:p-8"
         style={{ background: "rgba(255,255,255,0.04)" }}
       >
         {/* Apple-style inner sheen */}

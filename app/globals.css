@@ -113,9 +113,15 @@ body {
 .t-display-hero {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(52px, 7.5vw, 108px);
-  letter-spacing: -3px;
+  font-size: clamp(40px, 7.5vw, 108px);
+  letter-spacing: -2px;
   line-height: 0.95;
+}
+
+@media (min-width: 768px) {
+  .t-display-hero {
+    letter-spacing: -3px;
+  }
 }
 
 .t-section {
@@ -129,7 +135,7 @@ body {
 .t-feature-title {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 34px;
+  font-size: clamp(26px, 4.5vw, 34px);
   letter-spacing: -0.8px;
   line-height: 1.1;
 }

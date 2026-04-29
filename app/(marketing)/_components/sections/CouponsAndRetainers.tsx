@@ -6,7 +6,7 @@ import { couponsContent, retainersContent } from "@/lib/content/landing";
 export function CouponsAndRetainers() {
   return (
     <section className="border-t border-border-subtle bg-dark-2">
-      <div className="mx-auto grid max-w-[1200px] gap-14 px-6 py-20 md:grid-cols-2 md:gap-20 md:px-12">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-14 md:grid-cols-2 md:gap-20 md:px-12 md:py-20">
         {/* Coupons */}
         <div>
           <Reveal className="mb-3 text-[11px] font-semibold uppercase tracking-[1px] text-accent">

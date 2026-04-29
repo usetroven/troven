@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export function MockRetainer() {
   return (
-    <div className="flex w-full flex-col gap-3 p-7">
+    <div className="flex w-full flex-col gap-3 p-4 sm:p-7">
       <div className="mb-1 text-[11px] uppercase tracking-[1px] text-white/25">
         {retainersContent.label}
       </div>

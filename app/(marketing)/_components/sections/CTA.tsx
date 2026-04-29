@@ -4,7 +4,7 @@ import { ctaContent } from "@/lib/content/landing";
 
 export function CTA() {
   return (
-    <section className="bg-black px-6 py-24 text-center md:px-10 md:py-[120px]">
+    <section className="bg-black px-6 py-16 text-center md:px-10 md:py-[120px]">
       <Reveal
         as="h2"
         className="t-cta-title mb-5 whitespace-pre-line font-bold text-white"

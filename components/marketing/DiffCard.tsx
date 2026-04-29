@@ -12,7 +12,7 @@ export function DiffCard({ icon, iconBg, title, desc, light = false }: DiffCardP
   return (
     <div
       className={cn(
-        "h-full p-8 transition-colors",
+        "h-full p-5 transition-colors md:p-8",
         light ? "bg-white hover:bg-surface" : "bg-dark-2 hover:bg-dark-3",
       )}
     >
