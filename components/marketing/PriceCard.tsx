@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 
 type PriceCardProps = {
   plan: string;
-  amount: string;
-  period: string;
-  fee: string;
+  commission: string;
+  commissionNote: string;
+  threshold?: string;
   badge?: string;
   features: readonly string[];
   cta: { label: string; href: string };
@@ -15,9 +15,9 @@ type PriceCardProps = {
 
 export function PriceCard({
   plan,
-  amount,
-  period,
-  fee,
+  commission,
+  commissionNote,
+  threshold,
   badge,
   features,
   cta,
@@ -38,14 +38,22 @@ export function PriceCard({
           {badge}
         </span>
       ) : null}
-      <div className="mb-3 text-[12px] font-semibold uppercase tracking-[1px] text-white/35">
+
+      <div className="mb-4 text-[12px] font-semibold uppercase tracking-[1px] text-white/35">
         {plan}
       </div>
-      <div className="mb-1 font-display text-[44px] font-medium leading-none tracking-[-1px]">
-        {amount}
+
+      <div className="mb-1 font-display text-[56px] font-medium leading-none tracking-[-2px]">
+        {commission}
       </div>
-      <div className="mb-2 text-[14px] text-white/35">{period}</div>
-      <div className="mb-7 text-[13px] text-accent">{fee}</div>
+      <div className="mb-2 text-[14px] text-white/35">{commissionNote}</div>
+
+      {threshold ? (
+        <div className="mb-6 text-[12px] leading-[1.4] text-white/25">{threshold}</div>
+      ) : (
+        <div className="mb-6 text-[12px] text-accent">No monthly fee</div>
+      )}
+
       <ul className="mb-7 flex flex-col gap-2.5">
         {features.map((feature) => (
           <li
@@ -59,6 +67,7 @@ export function PriceCard({
           </li>
         ))}
       </ul>
+
       <Button
         as="a"
         href={cta.href}
